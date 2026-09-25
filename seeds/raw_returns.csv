@@ -1,0 +1,7 @@
+id,order_id,order_item_id,return_date,quantity,reason,refund_amount
+1,1,1,2018-01-09,1,damaged,1299
+2,8,15,2018-01-20,2,quality_issue,2798
+3,14,27,2018-01-26,2,wrong_item,2998
+4,18,36,2018-01-27,1,wrong_item,399
+5,23,45,2018-02-07,1,customer_changed_mind,1399
+6,52,103,2018-03-08,2,quality_issue,898

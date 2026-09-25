@@ -1,0 +1,9 @@
+jaffle_shop_duckdb:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: >-
+        /Users/nuri/rosetta-dbt-studio-projects/jaffle_shop_duckdb/jaffle_shop.duckdb
+      schema: main
+      threads: 4

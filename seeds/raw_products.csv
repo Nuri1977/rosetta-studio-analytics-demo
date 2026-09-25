@@ -1,0 +1,21 @@
+id,product_name,category,unit_price,active
+1,Classic Jaffle,jaffle,1299,True
+2,Cheese Jaffle,jaffle,1199,True
+3,Spicy Chicken Jaffle,jaffle,1499,True
+4,Veggie Jaffle,jaffle,1299,True
+5,Ham and Cheese Jaffle,jaffle,1399,True
+6,Breakfast Jaffle,jaffle,1599,True
+7,Mushroom Melt,jaffle,1349,True
+8,BBQ Beef Jaffle,jaffle,1699,True
+9,Tuna Sweetcorn Jaffle,jaffle,1449,True
+10,Spinach Feta Jaffle,jaffle,1399,True
+11,Tomato Soup,side,699,True
+12,Side Salad,side,799,True
+13,Potato Chips,side,499,True
+14,Iced Tea,drink,399,True
+15,Lemonade,drink,399,True
+16,Sparkling Water,drink,299,True
+17,Coffee,drink,449,True
+18,Chocolate Cake,dessert,649,True
+19,Banana Bread,dessert,599,True
+20,Cookie Box,dessert,899,False
