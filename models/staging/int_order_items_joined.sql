@@ -14,6 +14,6 @@ select
     oi.product_id,
     p.product_name,
     p.category,
-    oi.price as item_price
+    oi.unit_price as item_price
 from order_items oi
 left join products p on oi.product_id = p.product_id

@@ -1,0 +1,50 @@
+
+models:
+  - name: dim_customers
+    description: "A business entity representing a customer. Includes demographic details and summarized lifetime value metrics."
+    columns:
+      - name: customer_id
+        description: "The primary key for customers."
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "The customer's given name."
+      - name: last_name
+        description: "The customer's family name."
+      - name: first_order_date
+        description: "The date of the customer's first purchase."
+      - name: most_recent_order_date
+        description: "The date of the customer's most recent purchase."
+      - name: number_of_orders
+        description: "The total count of orders placed by the customer."
+
+  - name: dim_products
+    description: "A business entity representing products offered by the Jaffle Shop. Includes categorization for analytics."
+    columns:
+      - name: product_id
+        description: "The primary key for products."
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "The display name of the product."
+      - name: category
+        description: "The business category the product belongs to."
+
+  - name: fct_orders
+    description: "A transactional fact table representing individual order events. Includes granular revenue and status metrics."
+    columns:
+      - name: order_id
+        description: "The primary key for orders."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to dim_customers."
+      - name: order_date
+        description: "The date the order was placed."
+      - name: order_status
+        description: "Current status of the order."
+      - name: total_amount
+        description: "Total monetary value of the order."

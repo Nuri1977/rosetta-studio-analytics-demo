@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: main
+    tables:
+      - name: raw_orders
+        # 'order_date' in seeds is date-only, so freshness can't directly check it 
+        # as a timestamp for "last modified". 
+        # We define it for the tutorial but warn it might fail if DuckDB expects a full timestamp.

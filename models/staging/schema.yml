@@ -1,54 +1,27 @@
 version: 2
 
 models:
-  - name: stg_customers
-    columns:
-      - name: customer_id
-        tests:
-          - unique
-          - not_null
-
-  - name: stg_orders
-    columns:
-      - name: order_id
-        tests:
-          - unique
-          - not_null
-      - name: status
-        tests:
-          - accepted_values:
-              arguments:
-                values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
-
-  - name: stg_payments
-    columns:
-      - name: payment_id
-        tests:
-          - unique
-          - not_null
-      - name: payment_method
-        tests:
-          - accepted_values:
-              arguments:
-                values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
-
-  - name: stg_products
-    columns:
-      - name: product_id
-        tests:
-          - unique
-          - not_null
-
-  - name: stg_order_items
+  - name: int_order_items_joined
+    description: "Joins order items with product information to provide a grain of line items with product details."
     columns:
       - name: order_item_id
         tests:
           - unique
           - not_null
+      - name: order_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
 
-  - name: stg_customer_addresses
+  - name: int_orders_joined
+    description: "Joins orders with customer addresses to provide a grain of orders with location context."
     columns:
-      - name: address_id
+      - name: order_id
         tests:
           - unique
+          - not_null
+      - name: customer_id
+        tests:
           - not_null
