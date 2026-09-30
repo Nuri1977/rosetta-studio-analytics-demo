@@ -1,7 +1,7 @@
-name: jaffle_shop_duckdb
+name: rosetta_studio_analytics_demo
 config-version: 2
 version: '0.1'
-profile: jaffle_shop_duckdb
+profile: rosetta_studio_analytics_demo
 model-paths:
   - models
 seed-paths:

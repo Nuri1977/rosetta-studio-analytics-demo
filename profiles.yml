@@ -1,9 +1,9 @@
-jaffle_shop_duckdb:
+rosetta_studio_analytics_demo:
   target: dev
   outputs:
     dev:
       type: duckdb
       path: >-
-        /Users/nuri/rosetta-dbt-studio-projects/jaffle_shop_duckdb/jaffle_shop.duckdb
+        /Users/nuri/rosetta-dbt-studio-projects/rosetta_studio_analytics_demo/jaffle_shop.duckdb
       schema: main
       threads: 4
