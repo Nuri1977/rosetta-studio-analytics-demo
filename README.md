@@ -1,461 +1,164 @@
-# Testing dbt project: `jaffle_shop`
+# Rosetta Studio Analytics Demo
 
-`jaffle_shop` is a fictional ecommerce store. This dbt project transforms raw data from an app database into a customers and orders model ready for analytics.
+**From dbt models to AI-powered Analytics.**
 
-<details>
-<summary>
+This project uses fictional Jaffle Shop data, DuckDB, and dbt to demonstrate Analytics pages in **Rosetta DBT Studio**. Explore the finished report, see how Markdown and SQL power its components, and export a browser-ready website alongside the dbt project.
 
-## What is this repo?
+[Download Rosetta DBT Studio](https://rosettadb.io/download-dbtstudio.html) · [Star Studio on GitHub](https://github.com/rosettadb/dbt-studio) · [Demo repository](https://github.com/Nuri1977/rosetta-studio-analytics-demo)
 
-</summary>
+## Explore the finished report
 
-What this repo _is_:
-- A self-contained playground dbt project, useful for testing out scripts, and communicating some of the core dbt concepts.
+Clone the repository:
 
-What this repo _is not_:
-- A tutorial — check out the [Getting Started Tutorial](https://docs.getdbt.com/tutorial/setting-up) for that. Notably, this repo contains some anti-patterns to make it self-contained, namely the use of seeds instead of sources.
-- A demonstration of best practices — check out the [dbt Learn Demo](https://github.com/dbt-labs/dbt-learn-demo) repo instead. We want to keep this project as simple as possible. As such, we chose not to implement:
-    - our standard file naming patterns (which make more sense on larger projects, rather than this five-model project)
-    - a pull request flow
-    - CI/CD integrations
-- A demonstration of using dbt for a high-complex project, or a demo of advanced features (e.g. macros, packages, hooks, operations) — we're just trying to keep things simple here!
-
-</details>
-
-<details>
-<summary>
-
-## What's in this repo?
-
-</summary>
-
-This repo contains [seeds](https://docs.getdbt.com/docs/building-a-dbt-project/seeds) that includes some (fake) raw data from a fictional app along with some basic dbt [models](https://docs.getdbt.com/docs/building-a-dbt-project/building-models), tests, and docs for this data.
-
-The raw data consists of customers, orders, and payments, with the following entity-relationship diagram:
-
-![Jaffle Shop ERD](/etc/jaffle_shop_erd.png)
-
-</details>
-
-## Why should I care about this repo?
-If you're just starting your cloud data warehouse journey and are hungry to get started with dbt before your organization officially gets a data warehouse, you should check out this repo.
-
-If you want to run 28 SQL operations with dbt in less than `1 second`, for free, and all on your local machine, you should check out this repo.
-![dbt_performance](images/dbt_performance.png)
-
-If you want an adrenaline rush from a process that used to take dbt newcomers `1 hour` and is now less than `1 minute`, you should check out this repo.
-
-![dbt_full_deploy_commands](images/dbt_full_deploy_commands.png)
-
-[Verified GitHub Action on dbt Performance](https://github.com/dbt-labs/jaffle_shop_duckdb/runs/7141529753?check_suite_focus=true#step:4:306)
-
-## Running this project
-Prerequisities: Python >= 3.13
-
-> **Tip:** We recommend using [uv](https://docs.astral.sh/uv/getting-started/installation/) for faster dependency installation. If you have `uv` installed, you can replace all the venv and pip steps with `uv sync`, then activate the `.venv` virtual environment it creates.
-
-### Mach Speed: No explanation needed
-
-> Run `dbt` as fast as possible in a single copy and paste motion!
-
-<details open>
-<summary>POSIX bash/zsh</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python3 -m venv venv
-source venv/bin/activate
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-source venv/bin/activate
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>POSIX fish</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python3 -m venv venv
-source venv/bin/activate.fish
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-source venv/bin/activate.fish
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>POSIX csh/tcsh</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python3 -m venv venv
-source venv/bin/activate.csh
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-source venv/bin/activate.csh
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>POSIX PowerShell Core</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python3 -m venv venv
-venv/bin/Activate.ps1
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-venv/bin/Activate.ps1
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>Windows cmd.exe</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python -m venv venv
-venv\Scripts\activate.bat
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-venv\Scripts\activate.bat
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>Windows PowerShell</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python -m venv venv
-venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-venv\Scripts\Activate.ps1
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>GitHub Codespaces / Dev Containers </summary>
-
-#### Steps
-
-1. Ensure you have [Codespaces](https://github.com/features/codespaces) enabled for your GitHub organization or turned on as a beta feature if you're an individual user
-2. Click the green **Code** button on near the top right of the page of this repo's homepage (you may already be on it)
-3. Instead of cloning the repo like you normally would, instead select the **Codespaces** tab of the pop out, then "Create codespace on `duckdb`"
-   ![dbt_full_deploy_commands](images/open_in_codespaces.png)
-4. Wait for codespace to boot (~1 min?)
-5. Decide whether you'd like to use the Web IDE or open the codespace in your local environment
-6. When the codespace opens, a Task pane will show up and call `dbt build` just to show you how it's done
-7. Decide whether or not you'd like the recommended extensions installed (like **dbt Power User extension**)
-8. Open up a new terminal and type:
-    ```
-    dbt build
-    ```
-9. Explore some of the bells and whistles (see below)
-
-If you don't have Codespaces or would like to just run the environment in a local Docker container, you can by:
-1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-2. Install the VSCode [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension (formerly known as the "Remote - Containers" extension). Video tutorial [here](https://learn.microsoft.com/en-us/shows/beginners-series-to-dev-containers/installing-the-remote-containers-extension-2-of-8--beginners-series-to-dev-containers).
-2. Clone this repo and open it in VSCode
-1. First time: View > Command Palette > Remote-Containers: Open Folder in Container
-    - Wait for container to build -- expected to take several minutes
-    - Open a new terminal
-3. Subsequent times: Click **Reopen in Container** and wait for container to spin up
-   ![Reopen in Container](https://user-images.githubusercontent.com/8158673/181360469-c6f3eb94-6b65-4a8f-93a0-3438d182ee66.png)
-1. Continue on step 7 above
-
-
-#### bells and whistles
-
-There's some bells and whistles defined in the [.devcontainer.json]().devcontainer.json) that are worth calling out. Also a great reference is the [Setting up VSCode for dbt](https://dbt-msft.github.io/dbt-msft-docs/docs/guides/vscode_setup/) guide.
-
-1. there is syntax highlighting provided by the `vdcode-dbt` extension. However, it is configured such that files in your `target/run` and `target/compiled` folder are not syntax highlighted, as a reminder that these files are not where you should be making changes!
-2. basic `sqlfluff` linting is enabled as you type. Syntax errors will be underlined in red at the error, and will also be surfaced in the **Problems** tab of the Terminal pane. It's configured to lint as you type.
-3. Autocompletion is enabled for generic dbt macros via the `vdcode-dbt` extension. For example, if you type `macro` you'll notice a pop up that you can select with the arrow keys then click tab to get a macro snippet.
-  ![image](https://user-images.githubusercontent.com/8158673/181362230-2c00d666-6131-4619-93aa-2e30d9c2bfea.png)
-  ![image](https://user-images.githubusercontent.com/8158673/181362274-fa7d71ff-07fc-4b4a-97c3-a0464fbe4c7d.png)
-4. the `find-related` extension allows an easy shortcut to navigating using `CMD`+`R`to jump from
-    - a model file to it's corresponding compiled version,
-    - from a compiled file to either the original model file or the version in `target/run`
-5. The `vscode-yaml` YAML, combined with the JSON schema defined in [dbt-labs/dbt-jsonschema](https://github.com/dbt-labs/dbt-jsonschema), autocomplete options while working with dbt's YAML files: i.e. :
-    - Project definition files (`dbt_project.yml`)
-    - Package files (`packages.yml`)
-    - Selectors files (`selectors.yml`)
-    - Property files (`models/whatever.yml`)
-
-
-
-</details>
-
-### Step-by-step explanation
-
-To get up and running with this project:
-
-1. Clone this repository.
-
-1. Change into the `jaffle_shop_duck` directory from the command line:
-    ```shell
-    cd jaffle_shop_duckdb
-    ```
-
-1. Install dbt and DuckDB in a virtual environment.
-
-    Expand your shell below:
-
-    <details open>
-    <summary>POSIX bash/zsh</summary>
-
-    ```shell
-    python3 -m venv venv
-    source venv/bin/activate
-    python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
-    source venv/bin/activate
-    ```
-    </details>
-
-    <details>
-    <summary>POSIX fish</summary>
-
-    ```shell
-    python3 -m venv venv
-    source venv/bin/activate.fish
-    python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
-    source venv/bin/activate.fish
-    ```
-    </details>
-
-    <details>
-    <summary>POSIX csh/tcsh</summary>
-
-    ```shell
-    python3 -m venv venv
-    source venv/bin/activate.csh
-    python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
-    source venv/bin/activate.csh
-    ```
-    </details>
-
-    <details>
-    <summary>POSIX PowerShell Core</summary>
-
-    ```shell
-    python3 -m venv venv
-    venv/bin/Activate.ps1
-    python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
-    venv/bin/Activate.ps1
-    ```
-    </details>
-
-    <details>
-    <summary>Windows cmd.exe</summary>
-
-    ```shell
-    python -m venv venv
-    venv\Scripts\activate.bat
-    python -m pip install --upgrade pip
-    python -m pip install -r requirements.txt
-    venv\Scripts\activate.bat
-    ```
-    </details>
-
-    <details>
-    <summary>Windows PowerShell</summary>
-
-    ```shell
-    python -m venv venv
-    venv\Scripts\Activate.ps1
-    python -m pip install --upgrade pip
-    python -m pip install -r requirements.txt
-    venv\Scripts\Activate.ps1
-    ```
-    </details>
-
-
-  
-    *Why a 2nd activation of the virtual environment?*
-    <details>
-    <summary>This may not be necessary for many users, but might be for some. Read on for a first-person report from @dbeatty10.</summary>
-
-    I use `zsh` as my shell on my MacBook Pro, and I use `pyenv` to manage my Python environments. I already had an alpha version of dbt Core 1.2 installed (and yet another via [pipx](https://pypa.github.io/pipx/installation/)):
-    ```shell
-    $ which dbt
-    /Users/dbeatty/.pyenv/shims/dbt
-    ```
-    ```shell
-    $ dbt --version
-    Core:
-      - installed: 1.2.0-a1
-      - latest:    1.1.1    - Ahead of latest version!
-
-    Plugins:
-      - bigquery:  1.2.0a1 - Ahead of latest version!
-      - snowflake: 1.2.0a1 - Ahead of latest version!
-      - redshift:  1.2.0a1 - Ahead of latest version!
-      - postgres:  1.2.0a1 - Ahead of latest version!
-    ```
-
-    Then I ran all the steps to create a virtual environment and install the requirements of our DuckDB-based Jaffle Shop repo:
-    ```shell
-    $ python3 -m venv venv
-    $ source venv/bin/activate
-    (venv) $ python3 -m pip install --upgrade pip
-    (venv) $ python3 -m pip install -r requirements.txt
-    ```
-
-    Let's examine where `dbt` is installed and which version it is reporting:
-    ```shell
-    (venv) $ which dbt
-    /Users/dbeatty/projects/jaffle_duck/venv/bin/dbt
-    ```
-
-    ```shell
-    (venv) $ dbt --version
-    Core:
-      - installed: 1.2.0-a1
-      - latest:    1.1.1    - Ahead of latest version!
-
-    Plugins:
-      - bigquery:  1.2.0a1 - Ahead of latest version!
-      - snowflake: 1.2.0a1 - Ahead of latest version!
-      - redshift:  1.2.0a1 - Ahead of latest version!
-      - postgres:  1.2.0a1 - Ahead of latest version!
-    ```
-
-    ❌ That isn't what we expected -- something isn't right. 😢
-
-    So let's reactivate the virtual environment and try again...
-    ```shell
-    (venv) $ source venv/bin/activate
-    ```
-
-    ```shell
-    (venv) $ dbt --version
-    Core:
-      - installed: 1.1.1
-      - latest:    1.1.1 - Up to date!
-
-    Plugins:
-      - postgres: 1.1.1 - Up to date!
-      - duckdb:   1.1.3 - Up to date!
-    ```
-
-    ✅ This is what we want -- the 2nd reactivation worked. 😎 
-    </details>
-
-1. Ensure your [profile](https://docs.getdbt.com/reference/profiles.yml) is setup correctly from the command line:
-    ```shell
-    dbt --version
-    dbt debug
-    ```
-
-1. Load the CSVs with the demo data set, run the models, and test the output of the models using the [dbt build](https://docs.getdbt.com/reference/commands/build) command:
-    ```shell
-    dbt build
-    ```
-
-1. Query the data:
-
-    Launch the [DuckDB CLI](https://duckdb.org/docs/installation/?environment=cli):
-    ```shell
-    duckdb jaffle_shop.duckdb
-    ```
-
-    Run a query at the prompt and exit:
-    ```
-    select * from customers where customer_id = 42;
-    .exit
-    ```
-
-    Alternatively, use a single-liner to perform the query:
-    ```shell
-    duckdb jaffle_shop.duckdb -c "select * from customers where customer_id = 42"
-    ```
-    or:
-    ```shell
-    echo 'select * from customers where customer_id = 42' | duckdb jaffle_shop.duckdb
-    ```
-
-1. Generate and view the documentation for the project:
-    ```shell
-    dbt docs generate
-    dbt docs serve
-    ```
-
-## Running `build` steps independently
-
-1. Load the CSVs with the demo data set. This materializes the CSVs as tables in your target schema. Note that a typical dbt project **does not require this step** since dbt assumes your raw data is already in your warehouse.
-    ```shell
-    dbt seed
-    ```
-
-1. Run the models:
-    ```shell
-    dbt run
-    ```
-
-    > **NOTE:** If you decide to run this project in your own data warehouse (outside of this DuckDB demo) and steps fail, it might mean that you need to make small changes to the SQL in the models folder to adjust for the flavor of SQL of your target database. Definitely consider this if you are using a community-contributed adapter.
-
-1. Test the output of the models using the [test](https://docs.getdbt.com/reference/commands/test) command:
-    ```shell
-    dbt test
-    ```
-
-## Browsing the data
-Some options:
-- [DuckDB UI](https://duckdb.org/docs/stable/extensions/ui.html)
-- [DuckDB CLI](https://duckdb.org/docs/installation/?environment=cli)
-- [How to set up DBeaver SQL IDE for DuckDB](https://duckdb.org/docs/guides/sql_editors/dbeaver)
-
-### Troubleshooting
-
-You may get an error like this, in which case you will need to disconnect from any sessions that are locking the database:
-```
-IO Error: Could not set lock on file "jaffle_shop.duckdb": Resource temporarily unavailable
+```sh
+git clone https://github.com/Nuri1977/rosetta-studio-analytics-demo.git
+cd rosetta-studio-analytics-demo
 ```
 
-This is a known issue in DuckDB. If you are using DBeaver, this means shutting down DBeaver (merely disconnecting didn't work for me).
+Open **[analytics-page/index.html](analytics-page/index.html)** from your local checkout in a browser. GitHub displays HTML source; download or clone the project to view the rendered report.
 
-Very worst-case, deleting the database file will get you back in action (BUT you will lose all your data).
+The report includes:
 
+- Revenue, order count, and average order value cards.
+- Daily revenue and orders-by-status charts.
+- A payment-method breakdown and recent-orders table.
 
-#### GitHub Codespaces and VSCode Remote Container
+The exported site includes query results captured at build time, so viewing it does not require a running database or Studio. Keep the entire `analytics-page/` folder together when sharing it. To refresh its data, rebuild the site in Studio.
 
-If you're using a privacy-forward browser such as Firefox and Brave, or a tracking-cookie-blocking extension like UBlock Origin or Privacy Badger, you may see the below error. You can either change your cookie settings, use a browser like Chrome, or just ignore the error because it doesn't affect the demo
+The root-level `index.html`, `pages/`, and `assets/` contain another export. **`analytics-page/` is the report used for this demo.**
 
-![image](https://user-images.githubusercontent.com/8158673/181361459-294f807c-d990-4366-a4ab-d91cefcbc820.png)
+## How it works
 
----
-For more information on dbt:
-- Read the [introduction to dbt](https://docs.getdbt.com/docs/introduction)
-- Read the [dbt viewpoint](https://docs.getdbt.com/docs/about/viewpoint)
-- Join the [dbt Community](http://community.getdbt.com/)
+```mermaid
+flowchart LR
+    A[CSV seeds] --> B[dbt models]
+    B --> C[DuckDB tables and views]
+    C --> D[SQL Analytics page]
+    D --> E[Static website export]
+```
+
+In Studio, an Analytics page combines Markdown, named SQL queries, and components such as `BigValue`, `LineChart`, `BarChart`, `DonutChart`, and `DataTable`. You can author the page manually or use the AI assistant to help write and refine it. The preview renders the components; running a query or the whole page supplies their data.
+
+The editable page is saved in Studio for its connection. The files in `analytics-page/` are the generated website. Cloning this repository gives you the dbt project and the export; it does not automatically register an editable Analytics page in Studio.
+
+## Build the local DuckDB database
+
+### 1. Install the project dependencies
+
+The project targets **Python 3.13**, as recorded in `.python-version`. With [uv installed](https://docs.astral.sh/uv/getting-started/installation/), run from the repository root:
+
+```sh
+uv sync --locked
+```
+
+This uses the committed `uv.lock` to install the project's dbt Core, dbt-duckdb, and supporting packages.
+
+### 2. Set your database path
+
+The committed [profiles.yml](profiles.yml) contains the author's absolute local path. Before running dbt on another machine, update it to your own database location. For commands run from the repository root, use:
+
+```yaml
+rosetta_studio_analytics_demo:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: jaffle_shop.duckdb
+      schema: main
+      threads: 4
+```
+
+Keep the profile name `rosetta_studio_analytics_demo`; it matches [dbt_project.yml](dbt_project.yml). Use the full local database path when configuring Studio's DuckDB connection.
+
+### 3. Load, transform, and test
+
+```sh
+uv run dbt debug --profiles-dir .
+uv run dbt build --profiles-dir .
+```
+
+[`dbt build`](https://docs.getdbt.com/reference/commands/build) loads seeds, runs models, and executes their tests in dependency order. The DuckDB adapter creates `jaffle_shop.duckdb` at the configured path; there is no separate database-creation command to run first. Review the build results and the demo limitations below.
+
+To run the stages separately:
+
+```sh
+uv run dbt seed --profiles-dir .
+uv run dbt run --profiles-dir .
+uv run dbt test --profiles-dir .
+```
+
+The database file and dbt build artifacts are excluded from Git. Generate them locally from the included seeds and models.
+
+## Create an Analytics page in Rosetta DBT Studio
+
+1. Install [Rosetta DBT Studio](https://rosettadb.io/download-dbtstudio.html) and open the cloned dbt project.
+2. Build the database as described above, then connect Studio to your local `jaffle_shop.duckdb` file.
+3. Open the SQL Editor's **Analytics** tab and create a page for that connection.
+4. Write Markdown, named SQL blocks, and component tags, or ask the Analytics assistant to help generate them.
+5. Run the queries, inspect their results, and check the rendered preview.
+6. Choose **Build Analytics Site** and select an output folder inside the dbt project, such as `analytics-page/`. Building into that folder updates the existing export.
+7. Open the exported `index.html` in a browser and review the result.
+
+For a minimal page, paste this into the Analytics editor and run it:
+
+````markdown
+# Jaffle Shop Orders
+
+```sql total_orders
+SELECT count(*) AS order_count
+FROM fct_orders
+```
+
+<BigValue data={total_orders} value="order_count" label="Total Orders" />
+````
+
+The full demo uses `fct_orders` for order measures and trends, and `stg_payments` for the payment-method breakdown. The exported [report HTML](analytics-page/pages/jaffle-shop-report.html) also contains its Markdown source and captured query results.
+
+The AI assistant can use the active page and selected database context. Linked dbt project files, imported skills, connected MCP servers, and Agent Memory can extend that context when configured and enabled. Review generated SQL and results before exporting.
+
+## Project contents
+
+| Path | Purpose |
+| --- | --- |
+| [seeds/](seeds/) | Eight CSV datasets: customers, orders, payments, products, order items, customer addresses, order-status history, and returns. |
+| [models/staging/](models/staging/) | Staging models and intermediate joins. |
+| [models/marts/](models/marts/) | Customer and product dimensions, the order fact model, monthly revenue, and customer lifetime value. |
+| [models/orders.sql](models/orders.sql), [models/customers.sql](models/customers.sql) | Original Jaffle Shop order and customer models. |
+| [analytics-page/](analytics-page/) | The demo's exported HTML report, styles, and rendering runtime. |
+| [dbt_project.yml](dbt_project.yml), [profiles.yml](profiles.yml) | dbt project and DuckDB connection configuration. |
+| [pyproject.toml](pyproject.toml), [uv.lock](uv.lock), [requirements.txt](requirements.txt) | Python dependencies and pinned installation files. |
+| [data_enginering_course.md](data_enginering_course.md) | Course outline for the wider data-engineering exercise. |
+
+The current project contains **15 SQL models** and **8 seed files**, including 100 customers and 99 orders. The data is fictional and intended for learning and demonstration.
+
+## Generate dbt documentation
+
+```sh
+uv run dbt docs generate --profiles-dir .
+uv run dbt docs serve --profiles-dir .
+```
+
+This produces dbt's model documentation and lineage site. The Analytics website is generated separately through Studio's **Build Analytics Site** action.
+
+## Demo limitations
+
+- **Revenue calculations:** `fct_orders` joins payments and order items before aggregation. Multiple matching rows can duplicate payment amounts and item counts. Revenue and average-order-value cards in the export are demo output; aggregate each child table to order level before using these measures for business reporting.
+- **Address history:** `int_orders_joined` joins all customer addresses. Customers with multiple address records can produce duplicate order IDs and fail the existing uniqueness test.
+- **Incremental updates:** `fct_orders` selects dates later than the current maximum date. Updates to existing orders and late-arriving records need additional handling.
+- **Project configuration:** `dbt_project.yml` still has a `models.jaffle_shop` configuration block, while the project is named `rosetta_studio_analytics_demo`. This can produce an unused-configuration warning; that block does not configure the renamed project's models.
+
+## DuckDB file locks
+
+If dbt or Studio reports `Could not set lock on file`, close the other connection holding that database file before retrying. In an open DuckDB CLI session, use:
+
+```text
+.exit
+```
+
+When switching between Studio and terminal dbt commands, release the active database connection first. See [DuckDB's concurrency documentation](https://duckdb.org/docs/stable/connect/concurrency) for details.
+
+## Credits and license
+
+Based on [dbt Labs' Jaffle Shop DuckDB project](https://github.com/dbt-labs/jaffle_shop_duckdb), extended with teaching datasets, additional models, and a Rosetta DBT Studio Analytics export.
+
+See [LICENSE](LICENSE) for the repository's Apache 2.0 license. Rosetta DBT Studio is a separate project with its own [source and license](https://github.com/rosettadb/dbt-studio).
