@@ -3,7 +3,6 @@ rosetta_studio_analytics_demo:
   outputs:
     dev:
       type: duckdb
-      path: >-
-        /Users/nuri/rosetta-dbt-studio-projects/rosetta_studio_analytics_demo/jaffle_shop.duckdb
+      path: jaffle_shop.duckdb
       schema: main
       threads: 4
